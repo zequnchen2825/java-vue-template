@@ -5,7 +5,6 @@ import com.woc.common.common.bean.RespResult;
 import com.woc.common.entity.WocUser;
 
 import com.woc.common.vo.LoginVO;
-import com.woc.dao.dao.TUserMapper;
 import com.woc.service.service.user.ICmsLoginService;
 import com.woc.cms.admin.annotation.CmsIgnoreLogin;
 import org.apache.commons.lang3.StringUtils;
@@ -21,8 +20,6 @@ public class LoginController {
 
     @Autowired
     private ICmsLoginService iLoginService;
-    @Autowired
-    private TUserMapper tUserMapper;
 
     @RequestMapping("/login")
     @ResponseBody
