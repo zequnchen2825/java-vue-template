@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    include: dev,common,commondev
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+
+
+# slf4j日志配置
+logging:
+
+  # 配置级别
+  level:
+    #分包配置级别，即不同的目录下可以使用不同的级别
+    com.woc.woc.message: trace
+  # 指定输出日志的文件名，默认输出至当前项目目录下
+  file: D:/logs/woc-cms-admin/woc-cms-admin.log
+  #  file: springboot.log
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{15} - %msg%n'
+    dateformat: yyyy-MM-dd

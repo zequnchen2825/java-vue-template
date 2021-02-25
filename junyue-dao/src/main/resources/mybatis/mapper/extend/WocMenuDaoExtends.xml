@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woc.dao.dao.extend.WocMenuDaoExtend">
+
+  <select id="findMenuByRolesIdAndLevel" resultType="com.woc.common.entity.extend.WocMenuExtend">
+    select
+      m.id,
+      m.level,
+      m.status,
+      m.is_delete,
+      m.remark,
+      m.create_time,
+      m.menu_name,
+      m.menu_url,
+      m.p_id,
+      m.permission_code,
+      m.update_time,
+      m.icon
+    from
+      woc_role_menu rm,
+      woc_menu m
+    where
+      rm.menu_id = m.id and
+      rm.is_delete = 0 and
+      m.is_delete = 0 and
+      m.status = 1 
+      <if test="level != null">
+        and m.level = #{level}
+      </if>
+      <if test="pid != null">
+        and m.p_id = #{pid}
+      </if>
+      <if test="roleIds != null">
+        and rm.role_id in (#{roleIds})
+
+      </if>
+    order by m.order_level asc
+
+
+
+  </select>
+</mapper>

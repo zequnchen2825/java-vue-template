@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woc.dao.dao.extend.TAddressDaoExtend">
+
+    <select id="findAddress" resultType="com.woc.common.entity.extend.TAddressExtend">
+        select
+        ta.*,
+        tdb.dormitory_name
+        from
+        t_address ta,
+        t_dormitory_build tdb
+        where
+        ta.dormitory_build_id = tdb.id and
+        ta.is_delete = 0 and
+        tdb.is_delete = 0 and
+        ta.user_id=#{userId}
+
+
+
+    </select>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woc.dao.dao.extend.WocMediaDaoExtend">
+    <select id="findMedia" parameterType="com.woc.common.entity.extend.DO.WocMediaExtendDO"
+            resultType="com.woc.common.entity.extend.WocMediaExtend">
+      select
+        wm.*,
+        mg.group_name,
+        mg.width,
+        mg.height
+      from
+        woc_media wm left join media_group mg on wm.group_id = mg.id
+      left join woc_channel wc on mg.channel_id = wc.id
+      where
+        wm.is_delete = 0
+        and wc.platform_id = #{platformId}
+        <if test="title != '' and title != null">
+          and wm.title like "%${title}%"
+        </if>
+        <if test="type != '' and type != null">
+          and wm.type = #{type}
+        </if>
+        <if test="groupId != '' and groupId != null">
+          and wm.group_id = #{groupId}
+        </if>
+      order by wm.${order} asc
+
+    </select>
+    <select id="selectSelfByTitle" parameterType="com.woc.common.entity.WocMedia" resultType="com.woc.common.entity.WocMedia">
+      select
+        wm.*
+      from
+        woc_media wm,
+        media_group mg,
+        woc_channel wc
+      where
+        wm.group_id = mg.id and
+        mg.channel_id = wc.id and
+        wm.title = #{title} and
+        wc.platform_id = #{platfromId}
+
+
+
+    </select>
+</mapper>

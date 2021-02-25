@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woc.dao.dao.extend.MediaGroupDaoExtend">
+  <select id="findMediaGroup" parameterType="com.woc.common.entity.extend.DO.MediaGroupExtendDO" resultType="com.woc.common.entity.extend.MediaGroupExtend">
+
+    select
+      mg.*,
+      wc.channel_name
+    from
+      media_group mg left  join woc_channel wc on mg.channel_id = wc.id
+    where
+        mg.is_delete = 0
+        and wc.platform_id = #{platfromId}
+        <if test="groupName != '' and groupName != null">
+          AND mg.group_name like "%${groupName}%"
+        </if>
+        <if test="groupTag != '' and groupTag != null">
+          and mg.group_tag = #{groupTag}
+        </if>
+        <if test="channelId != '' and channelId != null">
+          and mg.channel_id = #{channelId}
+        </if>
+      order by mg.create_time desc
+  </select>
+    <select id="getMediaGroupByPCG" resultType="com.woc.common.entity.extend.MediaGroupExtend">
+      select
+        mg.*,
+        wc.platform_id
+      from
+        media_group mg left join woc_channel wc on mg.channel_id = wc.id
+        left join woc_platform wp on wc.platform_id = wp.id
+      where
+        mg.group_tag = #{groupTag} and
+        wc.channel_tag = #{channelTag} and
+        wp.platform_tag = #{platformTag} and
+        wp.status = 1 and
+        wp.is_delete = 0 and
+        wc.is_delete = 0
+
+    </select>
+</mapper>

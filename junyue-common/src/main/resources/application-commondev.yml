@@ -1,0 +1,72 @@
+server:
+  baseurl: http://www.encore-music.cn/
+  tomcat:
+    uri-encoding: UTF-8
+    max-http-header-size: 16KB
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/walking_on_the_code?characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+#    schema: classpath:db/schema-h2.sql
+#    data: classpath:db/data-h2.sql
+  redis:
+    database: 3
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 1000ms
+    jedis:
+      pool:
+        max-idle: 10
+        max-active: 200
+        max-wait: -1ms
+        min-idle: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 100ms
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: message
+    password: message
+    listener:
+      simple:
+        retry:
+          #    重试次数
+          max-attempts: 5
+          #   开启重试机制
+          enabled: true
+          initial-interval: 2000ms
+  mongodb:
+    host: 127.0.0.1
+    port: 27017
+    database: testDataBase
+
+
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/**/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.walkingoncore.woc.web.admin.entity  # 注意：对应实体类的路径
+  config-location: classpath:mybatis/mybatis-config.xml
+
+
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+
+
+
+

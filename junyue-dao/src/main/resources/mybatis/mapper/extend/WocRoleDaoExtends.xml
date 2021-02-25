@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woc.dao.dao.extend.WocRoleDaoExtend">
+  <resultMap id="BaseResultMap" type="com.woc.common.entity.WocRole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_code" jdbcType="VARCHAR" property="roleCode" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <select id="findRolesByUserId" resultMap="BaseResultMap" parameterType="int">
+    select
+      r.id,
+      r.sort,
+      r.is_delete,
+      r.createTime,
+      r.role_code,
+      r.role_name,
+      r.remark
+
+    from
+      woc_user_role ur ,
+      woc_role r
+    where
+     ur.role_id = r.id and
+     r.is_delete = 0 and
+     ur.is_delete = 0 and
+     ur.user_id = #{userId}
+     order by r.sort asc
+
+
+  </select>
+</mapper>

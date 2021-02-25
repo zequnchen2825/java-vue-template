@@ -1,0 +1,247 @@
+[
+    {
+        "value": "official_account", 
+        "label": "公众号", 
+        "children": [
+            {"value": "tweet", "label": "公号推文", "children": []},
+            {"value": "menu", "label": "公号菜单", "children": []},
+            {"value": "reply", "label": "自动回复", "children": []},
+            {"value": "modelmsg", "label": "公号模板信息", "children": []},
+            {"value": "custommsg", "label": "公号客服信息", "children": []},
+            {"value": "template", "label": "一次性订阅", "children": []},
+            {"value": "other", "label": "其他", "children": []}
+        ] 
+    },
+    { 
+        "value": "personal_account", 
+        "label": "个人号",
+        "children":[
+            {
+                "value": "communitywe", 
+                "label": "社群", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {
+                "value": "friendqwe", 
+                "label": "好友1对1", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {
+                "value": "timelineqwe", 
+                "label": "朋友圈", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {
+                "value": "we", 
+                "label": "其他", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            }
+        ] 
+    },
+    {
+        "value": "qy_wechat", 
+        "label": "企业微信",
+        "children": [
+            {"value": "friendqw", "label": "外部联系人1对1", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "communityqw", "label": "社群", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "timelineqw", "label": "朋友圈", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "notice", "label": "家校通知", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "qw", "label": "其他", 
+                "children": [
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            }
+        ]
+    },
+    {
+        "value": "outside_on", 
+        "label": "外部投放",
+        "children": [
+            {"value": "flow", "label": "信息流", "children": []},
+            {"value": "distribute", "label": "派单", "children": []},
+            {"value": "cpa", "label": "买量", "children": []},
+            {"value": "redeem", "label": "兑换码", "children": []},
+            {"value": "outer", "label": "其他", "children": []},
+            {"value": "site", "label": "站内", "children": []},
+            {"value": "share", "label": "分享", "children": []},
+            {"value": "ot", "label": "其他", "children": []}
+        ]
+    },
+    {
+        "value": "outline", 
+        "label": "线下",
+        "children": [
+            {"value": "league", "label": "线下加盟", "children": []},
+            {"value": "control_cap", "label": "线下地推", "children": []}
+        ]
+    },
+    {
+        "value": "market_channel_a", 
+        "label": "市场渠道-A",
+        "children": [
+            {"value": "business_cooperation", "label": "商务合作", 
+                "children": [
+                    {"value": "market_a_business_cpa", "label": "CPA", "children": []},
+                    {"value": "market_a_business_cps", "label": "CPS", "children": []},
+                    {"value": "market_a_business_cpa_cps", "label": "CPA+CPS", "children": []},
+                    {"value": "market_a_business_cpc", "label": "CPC", "children": []},
+                    {"value": "market_a_business_tmk", "label": "TMK", "children": []},
+                    {"value": "market_a_business_other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "new_media_launch", "label": "新媒体投放", 
+                "children": [
+                    {"value": "market_a_new_media_official_launch", "label": "公众号投放", "children": []},
+                    {"value": "market_a_new_media_other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "information_flow", "label": "信息流", 
+                "children": [
+                    {"value": "market_a_information_tiktok", "label": "抖音", "children": []},
+                    {"value": "market_a_information_wechat", "label": "微信", "children": []},
+                    {"value": "market_a_information_other", "label": "其他", "children": []},
+                    {"value": "market_a_offline_popularize", "label": "地面推广", "children": []},
+                    {"value": "market_a_offline_league", "label": "代理加盟", "children": []},
+                    {"value": "market_a_e_commerce_jd", "label": "京东", "children": []},
+                    {"value": "market_a_market_cooperation_activity", "label": "运营活动", "children": []},
+                    {"value": "increase", "label": "增长", "children": []},
+                    {"value": "knowledge_service", "label": "知识服务", "children": []},
+                    {"value": "other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "offline_channel", "label": "线下渠道", 
+                "children": [
+                    {"value": "market_a_offline_popularize", "label": "地面推广", "children": []},
+                    {"value": "market_a_offline_league", "label": "代理加盟", "children": []}
+                ]
+            },
+            {"value": "e_commerce", "label": "自营电商", 
+                "children": [
+                    {"value": "market_a_e_commerce_jd", "label": "京东(暂无)", "children": []}
+                ]
+            },
+            {"value": "market_cooperation", "label": "市场合作", 
+                "children": [
+                    {"value": "market_a_market_cooperation_activity", "label": "运营活动", "children": []}
+                ]
+            }
+        ]
+    },
+    {
+        "value": "other-b", 
+        "label": "其他-B",
+        "children": [
+            {"value": "other-quickly-department", "label": "快手部门", "children": []},
+            {"value": "other-different-cooperation", "label": "异业合作", "children": []}
+        ]
+    },
+    {
+        "value": "other_on", 
+        "label": "其他",
+        "children": [
+            {"value": "site", "label": "站内", "children": []},
+            {"value": "share", "label": "分享", "children": []},
+            {"value": "ot", "label": "其他", "children": []}
+        ]
+    },
+    {
+        "value": "recommended_share_r", 
+        "label": "推荐分享-R",
+        "children": [
+            {"value": "light_class", "label": "轻课", 
+                "children": [
+                    {"value": "website_s_light_class", "label": "轻课", "children": []}
+                ]
+            },
+            {"value": "fission_flow", "label": "裂变流量", 
+                "children": [
+                    {"value": "share_r_fission_products", "label": "产品裂变", "children": []},
+                    {"value": "share_r_fission_products_audition", "label": "产品裂变-试听课", "children": []},
+                    {"value": "share_r_fission_products_formal", "label": "产品裂变-正课", "children": []},
+                    {"value": "share_r_fission_products_fission", "label": "班主任裂变", "children": []},
+                    {"value": "share_r_fission_products_kol", "label": "KOL分销", "children": []},
+                    {"value": "share_r_ffission_sales", "label": "销售裂变", "children": []}
+                ]
+            },
+            {"value": "hxy_flow", "label": "荷小鱼流量", 
+                "children": [
+                    {"value": "share_r_hxy_flow_official", "label": "公众号", "children": []},
+                    {"value": "share_r_hxy_flow_cross", "label": "社群跨科", "children": []},
+                    {"value": "share_r_hxy_flow_other", "label": "其他", "children": []}
+                ]
+            },
+            {"value": "crossSection_and_referral", "label": "跨科&转介绍", 
+                "children": [
+                    {"value": "share_r_fcross_section", "label": "跨科", "children": []},
+                    {"value": "share_r_other", "label": "其他", "children": []}
+                ]
+            }
+        ]
+    },
+    {
+        "value": "internal_website_s", 
+        "label": "内部官网-S",
+        "children": [
+            {"value": "qlchat_flow", "label": "千聊流量", 
+                "children": [
+                    {"value": "website_s_third_party", "label": "三方" },
+                    {"value": "website_s_accounts", "label": "公众号" },
+                    {"value": "website_s_traffic_enlighten", "label": "私域流量-启蒙" },
+                    {"value": "website_s_traffic_generic_flow", "label": "私域流量-泛流量" }
+                ]
+            },
+            {"value": "natural_flow", "label": "自然流量", 
+                "children": [
+                    {"value": "website_s_natural_flow", "label": "自然流量" }
+                ]
+            },
+            {"value": "website_s_type_other", "label": "其他", 
+                "children": [
+                    {"value": "website_s_subtype_other", "label": "其他" }
+                ]
+            }
+        ]
+    }
+]

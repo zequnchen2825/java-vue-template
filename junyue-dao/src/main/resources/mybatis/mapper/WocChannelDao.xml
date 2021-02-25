@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woc.dao.dao.WocChannelDao">
+  <resultMap id="BaseResultMap" type="com.woc.common.entity.WocChannel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="channel_tag" jdbcType="VARCHAR" property="channelTag" />
+    <result column="channel_type" jdbcType="INTEGER" property="channelType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="appId" jdbcType="VARCHAR" property="appid" />
+    <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
+    <result column="app_key" jdbcType="VARCHAR" property="appKey" />
+    <result column="platform_id" jdbcType="INTEGER" property="platformId" />
+    <result column="redirect_url" jdbcType="VARCHAR" property="redirectUrl" />
+    <result column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="mch_id" jdbcType="VARCHAR" property="mchId" />
+    <result column="mch_key" jdbcType="VARCHAR" property="mchKey" />
+    <result column="terminal" jdbcType="INTEGER" property="terminal" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, channel_name, channel_tag, channel_type, `status`, is_delete, appId, app_secret, 
+    app_key, platform_id, redirect_url, school_id, mch_id, mch_key, terminal
+  </sql>
+  <select id="selectByExample" parameterType="com.woc.common.entity.WocChannelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from woc_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from woc_channel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from woc_channel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woc.common.entity.WocChannelExample">
+    delete from woc_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.woc.common.entity.WocChannel" useGeneratedKeys="true">
+    insert into woc_channel (channel_name, channel_tag, channel_type, 
+      `status`, is_delete, appId, 
+      app_secret, app_key, platform_id, 
+      redirect_url, school_id, mch_id, 
+      mch_key, terminal
+      )
+    values (#{channelName,jdbcType=VARCHAR}, #{channelTag,jdbcType=VARCHAR}, #{channelType,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR}, 
+      #{appSecret,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, #{platformId,jdbcType=INTEGER}, 
+      #{redirectUrl,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER}, #{mchId,jdbcType=VARCHAR}, 
+      #{mchKey,jdbcType=VARCHAR}, #{terminal,jdbcType=INTEGER}, #{mainAppid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.woc.common.entity.WocChannel" useGeneratedKeys="true">
+    insert into woc_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="channelTag != null">
+        channel_tag,
+      </if>
+      <if test="channelType != null">
+        channel_type,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="appid != null">
+        appId,
+      </if>
+      <if test="appSecret != null">
+        app_secret,
+      </if>
+      <if test="appKey != null">
+        app_key,
+      </if>
+      <if test="platformId != null">
+        platform_id,
+      </if>
+      <if test="redirectUrl != null">
+        redirect_url,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="mchId != null">
+        mch_id,
+      </if>
+      <if test="mchKey != null">
+        mch_key,
+      </if>
+      <if test="terminal != null">
+        terminal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelTag != null">
+        #{channelTag,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null">
+        #{channelType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="platformId != null">
+        #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="redirectUrl != null">
+        #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="mchId != null">
+        #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchKey != null">
+        #{mchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="terminal != null">
+        #{terminal,jdbcType=INTEGER},
+      </if>
+      <if test="mainAppid != null">
+        #{mainAppid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woc.common.entity.WocChannelExample" resultType="java.lang.Long">
+    select count(*) from woc_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update woc_channel
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.channelName != null">
+        channel_name = #{record.channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelTag != null">
+        channel_tag = #{record.channelTag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channelType != null">
+        channel_type = #{record.channelType,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.appid != null">
+        appId = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appSecret != null">
+        app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appKey != null">
+        app_key = #{record.appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platformId != null">
+        platform_id = #{record.platformId,jdbcType=INTEGER},
+      </if>
+      <if test="record.redirectUrl != null">
+        redirect_url = #{record.redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolId != null">
+        school_id = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mchId != null">
+        mch_id = #{record.mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mchKey != null">
+        mch_key = #{record.mchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.terminal != null">
+        terminal = #{record.terminal,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update woc_channel
+    set id = #{record.id,jdbcType=INTEGER},
+      channel_name = #{record.channelName,jdbcType=VARCHAR},
+      channel_tag = #{record.channelTag,jdbcType=VARCHAR},
+      channel_type = #{record.channelType,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      appId = #{record.appid,jdbcType=VARCHAR},
+      app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      app_key = #{record.appKey,jdbcType=VARCHAR},
+      platform_id = #{record.platformId,jdbcType=INTEGER},
+      redirect_url = #{record.redirectUrl,jdbcType=VARCHAR},
+      school_id = #{record.schoolId,jdbcType=INTEGER},
+      mch_id = #{record.mchId,jdbcType=VARCHAR},
+      mch_key = #{record.mchKey,jdbcType=VARCHAR},
+      terminal = #{record.terminal,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woc.common.entity.WocChannel">
+    update woc_channel
+    <set>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelTag != null">
+        channel_tag = #{channelTag,jdbcType=VARCHAR},
+      </if>
+      <if test="channelType != null">
+        channel_type = #{channelType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null">
+        appId = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        app_secret = #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null">
+        app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="platformId != null">
+        platform_id = #{platformId,jdbcType=INTEGER},
+      </if>
+      <if test="redirectUrl != null">
+        redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="mchId != null">
+        mch_id = #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchKey != null">
+        mch_key = #{mchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="terminal != null">
+        terminal = #{terminal,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woc.common.entity.WocChannel">
+    update woc_channel
+    set channel_name = #{channelName,jdbcType=VARCHAR},
+      channel_tag = #{channelTag,jdbcType=VARCHAR},
+      channel_type = #{channelType,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      appId = #{appid,jdbcType=VARCHAR},
+      app_secret = #{appSecret,jdbcType=VARCHAR},
+      app_key = #{appKey,jdbcType=VARCHAR},
+      platform_id = #{platformId,jdbcType=INTEGER},
+      redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      mch_id = #{mchId,jdbcType=VARCHAR},
+      mch_key = #{mchKey,jdbcType=VARCHAR},
+      terminal = #{terminal,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

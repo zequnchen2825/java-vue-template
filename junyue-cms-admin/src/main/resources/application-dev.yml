@@ -1,0 +1,20 @@
+server:
+  port: 8880
+  baseurl: http://www.encore-music.cn/
+  tomcat:
+    uri-encoding: UTF-8
+    max-http-header-size: 16KB
+  servlet:
+    context-path: /junyue-cms-admin
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+
+
+
+
+
+

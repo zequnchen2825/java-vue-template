@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>登录绑定</title>
+    <link rel="stylesheet"  th:href="@{/static/css/index.css}">
+    <!--<link rel="stylesheet" href="../static/css/index.css">-->
+    <!--<link rel="stylesheet" th:href="//cdn.bootcss.com/uikit/2.25.0/css/uikit.css"/>-->
+    <link rel="stylesheet" th:href="@{/static/uikit/css/uikit.css}"/>
+    <link rel="stylesheet" th:href="@{/static/uikit/css/components/notify.css}"/>
+</head>
+<body id="body" class="uk-height-1-1">
+
+<script th:src="@{/static/js/jquery.js}"></script>
+<script th:src="@{/static/uikit/js/uikit.js}"></script>
+<script th:src="@{/static/uikit/js/components/notify.js}"></script>
+
+
+
+<div class="uk-vertical-align uk-text-center uk-height-1-1">
+    <div id="headImg" th:style="'background-image: url('+${headUrl}+')'"></div>
+    <div class="uk-vertical-align-middle" id="form"  style="width: 80%;">
+        <form class="uk-panel uk-panel-box uk-form">
+            <div class="uk-form-row">
+                <p style="font-size:16px;color:red;margin: 0 auto;" th:text="${reason}" />
+            </div>
+            <div class="uk-form-row inputRow">
+                <input class="uk-width-1-1 uk-form-large" oninput="value=value.replace(/[^\d]/g,'');if(value.length>11)value=value.slice(0,10)" id="accout" type="text" placeholder="学号">
+            </div>
+            <div class="uk-form-row inputRow">
+                <input class="uk-width-1-1 uk-form-large" oninput="if(value.length>11)value=value.slice(0,15)" id="password" type="password" placeholder="密码">
+            </div>
+            <div class="uk-form-row inputRow" th:utext="${isYzm}" th:style="'display:'+${display}" />
+            <div class="uk-form-row inputRow" >
+                <a class="uk-width-1-1 uk-button uk-button-primary uk-button-large" id="login" style="width: 35%" href="#">绑定</a>
+            </div>
+        </form>
+
+    </div>
+    <div class="foot" id="foot">
+        <p th:text="${schoolName}"/>
+        <p style="font-size: 15px" th:text="${schoolMotto}"></p>
+    </div>
+    <div id="redirectUrl" th:redirect="${redirect}"></div>
+    <div id="loginUrl" th:login="${tologin}"></div>
+</div>
+
+
+
+</body>
+<script>
+
+    $(function() {
+        var w = $('#headImg').width();
+        var style = $('#headImg').attr('style');
+        var formTop = $('#form').offset().top+$('#form').height();
+        style = style+";height:"+w+"px;border-radius:"+(w/2)+"px;position:absolute;bottom:"+formTop+"px";
+        $('#headImg').attr('style', style);
+    })
+    var winHeight = $(window).height();   //获取当前页面高度
+    $(window).resize(function(){
+        var thisHeight=$(this).height();
+        if(winHeight - thisHeight >50){
+
+            //当软键盘弹出，在这里面操作
+            document.getElementById("headImg").style.display="none";
+            document.getElementById("foot").style.display="none";
+
+        }else{
+            //当软键盘收起，在此处操作
+            document.getElementById("headImg").style.display="";
+            document.getElementById("foot").style.display="";
+        }
+    });
+    $("#login").click(function () {
+
+        $(".uk-notify").html("");
+        var account = $("#accout").val();
+        var password = $("#password").val();
+        var verifyCode = $("#verifyCode").val();
+        if(account == ''){
+            UIkit.notify("请输入账号",{timeout: 1000});
+            return;
+        }
+        if(password == ''){
+
+            UIkit.notify("请输入密码",{timeout: 1000});
+            return;
+        }
+        if($("#verifyCode") != null){
+            if(verifyCode == '' ){
+                UIkit.notify("请输入验证码",{timeout: 1000});
+                return;
+            }
+        }
+        var param = {
+            yzm:$("#verifyCode").val(),
+            account:account,
+            pwd:password
+        }
+
+
+
+        var redirect = document.getElementById("redirectUrl").getAttribute("redirect");
+        var url = document.getElementById("loginUrl").getAttribute("login");
+        UIkit.notify("正在验证信息登录，读取信息中",{timeout: 10000});
+        $.post(url,param,function(data,status, xhr){
+
+            if(data.code == null){
+                $("html").html(data);
+            }
+            if(data.code == 200){
+                window.location.href=redirect;
+            }else if(data ==302){
+                window.location.href=data;
+            }else{
+                UIkit.notify(data.msg,{timeout: 1000});
+            }
+
+        })
+
+    });
+</script>
+</html>

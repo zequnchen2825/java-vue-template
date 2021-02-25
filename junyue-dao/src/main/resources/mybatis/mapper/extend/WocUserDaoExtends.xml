@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woc.dao.dao.extend.WocUserDaoExtend">
+
+  <resultMap id="wocUserExtend" type="com.woc.common.entity.extend.WocUserExtend">
+    <id column="id" property="id"/>
+    <result column="platform_id" property="platformId"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+    <result column="account" property="account"/>
+    <association property="platform" javaType="com.woc.common.entity.WocPlatform">
+        <result column="platform_name" property="platformName" />
+
+    </association>
+
+  </resultMap>
+  <select id="selectByPlatformTag" resultMap="wocUserExtend">
+
+    select
+      u.id,
+      u.platform_id,
+      u.create_time,
+      u.update_time,
+      u.account,
+      p.platform_name
+    from
+      woc_user u,
+      woc_platform p
+    where
+      u.platform_id = p .id and
+      p.is_delete = 0 and
+      p.status = 1 and
+      u.is_delete = 0
+      <if test="platformTag != null and platformTag != ''">
+
+        and p.platform_tag = #{platformTag}
+      </if>
+      <if test="account != null and account != ''">
+
+        and p.account like #{account}
+      </if>
+
+
+  </select>
+
+  <select id="findUserRoleList" resultType="com.woc.common.entity.WocRole">
+    select
+      r.id,
+      r.sort,
+      r.remark,
+      r.role_name,
+      r.role_code,
+      r.createTime
+
+    from
+      woc_role r,
+      woc_user_role u
+    where
+      r.id = u.role_id and
+      r.is_delete = 0 and
+      u.is_delete = 0 and
+      u.user_id = #{userId}
+      order by
+        r.sort asc
+
+
+  </select>
+</mapper>

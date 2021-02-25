@@ -1,0 +1,55 @@
+spring:
+  devtool:
+    restart:
+      enabled: true
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  profiles:
+    include: dev
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+url:
+  weixin-get-access-token: https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+  weixin-get-user-info: https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+
+
+
+#    # 静态文件请求匹配方式
+#  spring.mvc.static-path-pattern=/**
+#  # 修改默认的静态寻址资源目录
+#  spring.resources.static-locations = classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+#  #热部署生效
+#  spring.devtools.restart.enabled=true
+
+wyu:
+  login-url: http://jxgl.wyu.edu.cn/new/login
+  schedule-url: http://jxgl.wyu.edu.cn/xsgrkbcx!xsAllKbList.action?xnxqdm=
+  grade-url: http://jxgl.wyu.edu.cn/xskccjxx!getDataList.action
+  testGrade-url: http://jxgl.wyu.edu.cn/xskjcjxx!getDataList.action
+  user-url: http://jxgl.wyu.edu.cn/xjkpxx!xjkpxx.action
+  yzm-url: http://jxgl.wyu.edu.cn/yzm
+#  yzm-url: http://www.beian.miit.gov.cn/getVerifyCode
+  all-course-url: http://jxgl.wyu.edu.cn/xsgrkbcx!getQxkbDataList.action
+
+weixin:
+  accessToken:
+    url: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
+
+aliyun:
+  oss:
+    endpoint: http://oss-cn-shenzhen.aliyuncs.com
+    accessKeyId: LTAIySTseuhDtgGl
+    accessKeySecret: vqH8YjZE9FBaIfQWTHPUR9UYpbD68f
+    baseFileUrl: https://%s.oss-cn-shenzhen.aliyuncs.com
+
+super:
+  manager:
+    code: CE04E24F522AA7CE
