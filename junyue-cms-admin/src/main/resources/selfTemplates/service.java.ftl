@@ -25,7 +25,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
     Boolean insert(${entity} ${entity?uncap_first});
 
-    Boolean update(${entity} ${entity?uncap_first})B;
+    Boolean update(${entity} ${entity?uncap_first});
 
     Boolean delete(Integer id);
 }

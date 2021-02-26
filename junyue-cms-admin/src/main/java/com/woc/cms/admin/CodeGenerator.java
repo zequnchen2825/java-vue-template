@@ -70,12 +70,12 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("输入模块名"));
-        pc.setParent("com.test");
-        pc.setServiceImpl(pc.getParent()+".service.service."+pc.getModuleName()+".impl");
-        pc.setService(pc.getParent()+".service.service."+pc.getModuleName());
-        pc.setMapper(pc.getParent()+".dao.dao."+pc.getModuleName());
-        pc.setEntity(pc.getParent()+".common.entity."+pc.getModuleName());
-        pc.setController(pc.getParent()+".cms.admin.controller."+pc.getModuleName());
+        pc.setParent("com.woc");
+        pc.setServiceImpl(".service.service."+pc.getModuleName()+".impl");
+        pc.setService(".service.service."+pc.getModuleName());
+        pc.setMapper(".dao.dao."+pc.getModuleName());
+        pc.setEntity(".common.entity."+pc.getModuleName());
+        pc.setController(".cms.admin.controller."+pc.getModuleName());
         pc.setPathInfo(new HashMap<>());
         mpg.setPackageInfo(pc);
 
