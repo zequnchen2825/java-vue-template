@@ -1,6 +1,7 @@
 package com.woc.cms.admin;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,13 +49,12 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         gc.setActiveRecord(true);
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/junyue-cms-admin/src/main/java/");
+//        gc.setOutputDir(projectPath + "/junyue-cms-admin/src/main/java/");
         gc.setAuthor("zequn.chen");
         gc.setOpen(false);
         gc.setFileOverride(false);
         gc.setBaseResultMap(true);//生成resultMap
         gc.setBaseColumnList(true);//在xml中生成基础列
-
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
 
@@ -69,7 +70,13 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("输入模块名"));
-//        pc.setParent("com.baomidou.ant");
+        pc.setParent("com.test");
+        pc.setServiceImpl(pc.getParent()+".service.service."+pc.getModuleName()+".impl");
+        pc.setService(pc.getParent()+".service.service."+pc.getModuleName());
+        pc.setMapper(pc.getParent()+".dao.dao."+pc.getModuleName());
+        pc.setEntity(pc.getParent()+".common.entity."+pc.getModuleName());
+        pc.setController(pc.getParent()+".cms.admin.controller."+pc.getModuleName());
+        pc.setPathInfo(new HashMap<>());
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -84,21 +91,31 @@ public class CodeGenerator {
         List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
         focList.add(
-            new FileOutConfig("/selfTemplates/mapper.xml.ftl") {
-                @Override
-                public String outputFile(TableInfo tableInfo) {
-                    // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                    return projectPath + "/junyue-cms-admin/src/main/resources/mapper/" + pc.getModuleName()
-                            + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                new FileOutConfig("/selfTemplates/mapper.xml.ftl") {
+                    @Override
+                    public String outputFile(TableInfo tableInfo) {
+                        // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                        return projectPath + "/junyue-dao/src/main/resources/mapper/" + pc.getModuleName()
+                                + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                    }
                 }
-            }
+        );
+        focList.add(
+                new FileOutConfig("/selfTemplates/mapper.java.ftl") {
+                    @Override
+                    public String outputFile(TableInfo tableInfo) {
+                        // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                        return projectPath + "/junyue-dao/src/main/java/com/woc/dao/dao/" + pc.getModuleName()
+                                + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
+                    }
+                }
         );
         focList.add(
                 new FileOutConfig("/selfTemplates/entity.java.ftl") {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-common/src/main/java/com/woc/common/entitiy/" + pc.getModuleName()
+                        return projectPath + "/junyue-common/src/main/java/com/woc/common/entity/" + pc.getModuleName()
                                 + "/" + tableInfo.getEntityName()+ StringPool.DOT_JAVA;
                     }
                 }
@@ -119,7 +136,7 @@ public class CodeGenerator {
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                         return projectPath + "/junyue-service/src/main/java/com/woc/service/service/" + pc.getModuleName()
-                                + "/impl/" + tableInfo.getEntityName()+"Service"+ StringPool.DOT_JAVA;
+                                + "/impl/" + tableInfo.getEntityName()+"ServiceImpl"+ StringPool.DOT_JAVA;
                     }
                 }
         );
@@ -128,8 +145,8 @@ public class CodeGenerator {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-cms-admin/src/main/java/com/woc/cms/admin/controller/" + pc.getModuleName()
-                                + "/impl/" + tableInfo.getEntityName()+"Service"+ StringPool.DOT_JAVA;
+                        return projectPath + "/junyue-cms-admin/src/main/java/com/woc/cms/admin/controller/" + pc.getModuleName()+"/"
+                                +  tableInfo.getEntityName()+"Controller"+ StringPool.DOT_JAVA;
                     }
                 }
         );
@@ -137,7 +154,7 @@ public class CodeGenerator {
             @Override
             public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
                 // 判断自定义文件夹是否需要创建
-                checkDir("调用默认方法创建的目录，自定义目录用");
+                checkDirs(filePath);
                 if (fileType == FileType.MAPPER) {
                     // 已经生成 mapper 文件判断存在，不想重新生成返回 false
                     return !new File(filePath).exists();
@@ -167,12 +184,12 @@ public class CodeGenerator {
 
         // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        templateConfig.setEntity("selfTemplates/entity.java");
-        templateConfig.setService("selfTemplates/service.java");
-        templateConfig.setServiceImpl("selfTemplates/serviceImpl.java");
-        templateConfig.setController("selfTemplates/controller.java");
-
-        templateConfig.setXml(null);
+        templateConfig.setEntity("/selfTemplates/entity.java");
+        templateConfig.setService("/selfTemplates/service.java");
+        templateConfig.setServiceImpl("/selfTemplates/serviceImpl.java");
+        templateConfig.setController("/selfTemplates/controller.java");
+        templateConfig.setMapper("/selfTemplates/mapper.java");
+        templateConfig.setXml("/selfTemplates/mapper.xml");
         mpg.setTemplate(templateConfig);
 
         // 策略配置
@@ -188,10 +205,17 @@ public class CodeGenerator {
 //        strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix("t_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-//        mpg.execute();
+        mpg.execute();
     }
 
+    private static void checkDirs(String filePath) {
+        File file = new File(filePath);
+        boolean exist = file.exists();
+        if (!exist) {
+            file.getParentFile().mkdirs();
+        }
+    }
 }

@@ -2,6 +2,9 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
+import java.util.List;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 
 /**
  * <p>
@@ -18,6 +21,12 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
     ${entity} selectById (Integer id);
 
-    List<${entity}> selectByMap (Map< String, Object> params);
+    List<${entity}> selectList(Wrapper<${entity}> ${entity?uncap_first}Wrapper);
+
+    Boolean insert(${entity} ${entity?uncap_first});
+
+    Boolean update(${entity} ${entity?uncap_first})B;
+
+    Boolean delete(Integer id);
 }
 </#if>
