@@ -49,7 +49,6 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         gc.setActiveRecord(true);
         String projectPath = System.getProperty("user.dir");
-//        gc.setOutputDir(projectPath + "/junyue-cms-admin/src/main/java/");
         gc.setAuthor("zequn.chen");
         gc.setOpen(false);
         gc.setFileOverride(false);
@@ -69,13 +68,13 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("输入模块名"));
+        String moduleName = scanner("输入模块名");
         pc.setParent("com.woc");
-        pc.setServiceImpl(".service.service."+pc.getModuleName()+".impl");
-        pc.setService(".service.service."+pc.getModuleName());
-        pc.setMapper(".dao.dao."+pc.getModuleName());
-        pc.setEntity(".common.entity."+pc.getModuleName());
-        pc.setController(".cms.admin.controller."+pc.getModuleName());
+        pc.setServiceImpl("service.service."+moduleName+".impl");
+        pc.setService("service.service."+moduleName);
+        pc.setMapper("dao.dao."+moduleName);
+        pc.setEntity("common.entity."+moduleName);
+        pc.setController("cms.admin.controller."+moduleName);
         pc.setPathInfo(new HashMap<>());
         mpg.setPackageInfo(pc);
 
@@ -95,7 +94,7 @@ public class CodeGenerator {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-dao/src/main/resources/mapper/" + pc.getModuleName()
+                        return projectPath + "/junyue-dao/src/main/resources/mapper/" + moduleName
                                 + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
                     }
                 }
@@ -105,7 +104,7 @@ public class CodeGenerator {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-dao/src/main/java/com/woc/dao/dao/" + pc.getModuleName()
+                        return projectPath + "/junyue-dao/src/main/java/com/woc/dao/dao/" + moduleName
                                 + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_JAVA;
                     }
                 }
@@ -115,7 +114,7 @@ public class CodeGenerator {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-common/src/main/java/com/woc/common/entity/" + pc.getModuleName()
+                        return projectPath + "/junyue-common/src/main/java/com/woc/common/entity/" + moduleName
                                 + "/" + tableInfo.getEntityName()+ StringPool.DOT_JAVA;
                     }
                 }
@@ -125,7 +124,7 @@ public class CodeGenerator {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-service/src/main/java/com/woc/service/service/" + pc.getModuleName()
+                        return projectPath + "/junyue-service/src/main/java/com/woc/service/service/" + moduleName
                                 + "/I" + tableInfo.getEntityName()+"Service"+ StringPool.DOT_JAVA;
                     }
                 }
@@ -135,7 +134,7 @@ public class CodeGenerator {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-service/src/main/java/com/woc/service/service/" + pc.getModuleName()
+                        return projectPath + "/junyue-service/src/main/java/com/woc/service/service/" + moduleName
                                 + "/impl/" + tableInfo.getEntityName()+"ServiceImpl"+ StringPool.DOT_JAVA;
                     }
                 }
@@ -145,7 +144,7 @@ public class CodeGenerator {
                     @Override
                     public String outputFile(TableInfo tableInfo) {
                         // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                        return projectPath + "/junyue-cms-admin/src/main/java/com/woc/cms/admin/controller/" + pc.getModuleName()+"/"
+                        return projectPath + "/junyue-cms-admin/src/main/java/com/woc/cms/admin/controller/" + moduleName+"/"
                                 +  tableInfo.getEntityName()+"Controller"+ StringPool.DOT_JAVA;
                     }
                 }
